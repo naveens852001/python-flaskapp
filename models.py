@@ -1,5 +1,5 @@
 
-from app import db
+from api.app import db
 
 class Cloud(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

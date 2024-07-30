@@ -2,6 +2,7 @@ from flask import Flask
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from views.main_view import ServerlessHandler
 
 
 app = Flask("customer_app")
@@ -15,3 +16,5 @@ from models import *
 import views
 import urls
 
+
+handler = ServerlessHandler(app)    
