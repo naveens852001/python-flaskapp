@@ -1,4 +1,4 @@
-from api.app import app
+from app import app 
 from views import main_view
 # view/Home Page Render
 app.add_url_rule("/", view_func=main_view.HomepageHandler.as_view('home'))
@@ -31,4 +31,3 @@ app.add_url_rule('/Profile',view_func=main_view.Profile.as_view('Profile'))
 
 app.add_url_rule('/test_connection', view_func=main_view.TestConnectionView.as_view('test_connection'))
 
-app.add_url_rule('/', view_func=main_view.HelloWorldView.as_view('hello_world'))

@@ -3,7 +3,7 @@ from flask.views import View, MethodView
 from forms import CloudForm
 from sqlalchemy.sql import func,text
 from models import Cloud
-from api.app import db,app
+from app import app ,db
 
 # View/Render base.html
 class BaseHtmlView(MethodView):
@@ -117,35 +117,3 @@ class TestConnectionView(MethodView):
         except Exception as e:
             return jsonify(error=str(e)), 500
 
-
-class HelloWorldView(MethodView):
-    def get(self):
-        return jsonify(message="Hello from Flask!")
-
-    def post(self):
-        # Handle POST requests if needed
-        return jsonify(message="POST request received")
-
-class ServerlessHandler:
-    def __init__(self, app):
-        self.app = app
-
-    def __call__(self, event, context):
-        with self.app.test_request_context(event.get('body', '')):
-            try:
-                response = self.app.full_dispatch_request()
-                return {
-                    "statusCode": response.status_code,
-                    "body": response.get_data(as_text=True),
-                    "headers": {
-                        "Content-Type": response.content_type
-                    }
-                }
-            except Exception as e:
-                return {
-                    "statusCode": 500,
-                    "body": str(e),
-                    "headers": {
-                        "Content-Type": "text/plain"
-                    }
-                }

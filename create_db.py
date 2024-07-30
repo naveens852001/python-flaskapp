@@ -1,5 +1,5 @@
-from api.app import app
-from api.app import db  # Import your app and db from your main application file
+
+from app import app , db  # Import your app and db from your main application file
 from models import Cloud  # Import your models
 
 with app.app_context():
