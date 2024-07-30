@@ -19,7 +19,7 @@ class Config:
     
     SECRET_KEY = 'developmentKey'
     # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:postgres@localhost/clouddb'
-    SECRET_KEY = 'developmentKey'
+ 
     
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # def __init__(self):
