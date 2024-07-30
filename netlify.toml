@@ -1,7 +1,0 @@
-[build]
-  functions = "functions" # Directory where your serverless functions are located
-  publish = "static" # Directory where static files are located (if applicable)
-
-[functions]
-  directory = "functions" # Directory where serverless functions are located
-
