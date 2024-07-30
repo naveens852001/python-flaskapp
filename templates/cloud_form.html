@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block title %}Create Cloud Form{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <form method="post" action="" novalidate>
+        {{ form.hidden_tag() }} 
+
+        <div>
+            <label for="{{ form.name.id }}">{{ form.name.label }}</label>
+            {{ form.name(class='input-border' if form.name.errors else '') }}
+            {% if form.name.errors %}
+                {% for error in form.name.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.email.id }}">{{ form.email.label }}</label>
+            {{ form.email(class='input-border' if form.email.errors else '') }}
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.cc_mail_ids.id }}">{{ form.cc_mail_ids.label }}</label>
+            {{ form.cc_mail_ids(class='input-border' if form.cc_mail_ids.errors else '') }}
+            {% if form.cc_mail_ids.errors %}
+                {% for error in form.cc_mail_ids.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.url.id }}">{{ form.url.label }}</label>
+            {{ form.url(class='input-border' if form.url.errors else '') }}
+            {% if form.url.errors %}
+                {% for error in form.url.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div>
+            {{ form.datacenter_main.label }}
+            {{ form.datacenter_main() }}
+            {% if form.datacenter_main.errors %}
+                <div class="text-danger">
+                    {% for error in form.datacenter_main.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    
+        <div>
+            {{ form.datacenters_remote.label }}
+            {{ form.datacenters_remote() }}
+            {% if form.datacenters_remote.errors %}
+                <div class="text-danger">
+                    {% for error in form.datacenters_remote.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            <label for="{{ form.role.id }}">{{ form.role.label }}</label>
+            {{ form.role(class='input-border' if form.role.errors else '') }}
+            {% if form.role.errors %}
+                {% for error in form.role.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.status.id }}">{{ form.status.label }}</label>
+            {{ form.status(class='input-border' if form.status.errors else '') }}
+            {% if form.status.errors %}
+                {% for error in form.status.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.sfdc_name.id }}">{{ form.sfdc_name.label }}</label>
+            {{ form.sfdc_name(class='input-border' if form.sfdc_name.errors else '') }}
+            {% if form.sfdc_name.errors %}
+                {% for error in form.sfdc_name.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.sfdc_id.id }}">{{ form.sfdc_id.label }}</label>
+            {{ form.sfdc_id(class='input-border' if form.sfdc_id.errors else '') }}
+            {% if form.sfdc_id.errors %}
+                {% for error in form.sfdc_id.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.private_device_licenses.id }}">{{ form.private_device_licenses.label }}</label>
+            {{ form.private_device_licenses(class='input-border' if form.private_device_licenses.errors else '') }}
+            {% if form.private_device_licenses.errors %}
+                {% for error in form.private_device_licenses.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.shared_devices_licenses.id }}">{{ form.shared_devices_licenses.label }}</label>
+            {{ form.shared_devices_licenses(class='input-border' if form.shared_devices_licenses.errors else '') }}
+            {% if form.shared_devices_licenses.errors %}
+                {% for error in form.shared_devices_licenses.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.browser_licenses.id }}">{{ form.browser_licenses.label }}</label>
+            {{ form.browser_licenses(class='input-border' if form.browser_licenses.errors else '') }}
+            {% if form.browser_licenses.errors %}
+                {% for error in form.browser_licenses.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.virtual_device_licenses.id }}">{{ form.virtual_device_licenses.label }}</label>
+            {{ form.virtual_device_licenses(class='input-border' if form.virtual_device_licenses.errors else '') }}
+            {% if form.virtual_device_licenses.errors %}
+                {% for error in form.virtual_device_licenses.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.cloud_build.id }}">{{ form.cloud_build.label }}</label>
+            {{ form.cloud_build(class='input-border' if form.cloud_build.errors else '') }}
+            {% if form.cloud_build.errors %}
+                {% for error in form.cloud_build.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.reporter_build.id }}">{{ form.reporter_build.label }}</label>
+            {{ form.reporter_build(class='input-border' if form.reporter_build.errors else '') }}
+            {% if form.reporter_build.errors %}
+                {% for error in form.reporter_build.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.nv_build.id }}">{{ form.nv_build.label }}</label>
+            {{ form.nv_build(class='input-border' if form.nv_build.errors else '') }}
+            {% if form.nv_build.errors %}
+                {% for error in form.nv_build.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.selenium_build.id }}">{{ form.selenium_build.label }}</label>
+            {{ form.selenium_build(class='input-border' if form.selenium_build.errors else '') }}
+            {% if form.selenium_build.errors %}
+                {% for error in form.selenium_build.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div>   
+            <label for="{{ form.phase.id }}">{{ form.phase.label }}</label>
+            {{ form.phase(class='input-border' if form.phase.errors else '') }}
+            {% if form.phase.errors %}
+                {% for error in form.phase.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {{ form.submit(class="btn-primary") }}
+    </form>
+</div>
+{% endblock %}

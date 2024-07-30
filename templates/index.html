@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="cloud-div">
+        <div class="cloud-box">
+            <h3>Total Cloud Registered:</h3>
+            <p id="cloud-count">Clouds: {{ cloud_count }}</p>
+        </div>
+       
+    </div>
+   
+    <div class="cloud-details">
+       
+        {% if results %}
+        <p>Cloud Details:</p>
+        <div class="action">
+            <p><a href="{{url_for('update_cloud')}} ">Edit-Cloud</button></a>
+            <p ><a href="{{url_for('update_cloud')}} ">Delete</button></a>
+        </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>URL</th>
+                        <th>Main Datacenter</th>
+                        <th>Remote Datacenters</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>SFDC Name</th>
+                        <th>SFDC ID</th>
+                        <th>Private Device Licenses</th>
+                        <th>Shared Devices Licenses</th>
+                        <th>Browser Licenses</th>
+                        <th>Virtual Device Licenses</th>
+                        <th>Cloud Build</th>
+                        <th>Reporter Build</th>
+                        <th>NV Build</th>
+                        <th>Selenium Build</th>
+                        <th>Phase</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cloud in results %}
+                        <tr>
+                            <td>{{ cloud.name }}</td>
+                            <td>{{ cloud.email or 'N/A' }}</td>
+                            <td>{{ cloud.url or 'N/A' }}</td>
+                            <td>{{ cloud.datacenter_main or 'N/A' }}</td>
+                            <td>{{ cloud.datacenters_remote or 'N/A' }}</td>
+                            <td>{{ cloud.role or 'N/A' }}</td>
+                            <td>{{ cloud.status or 'N/A' }}</td>
+                            <td>{{ cloud.sfdc_name or 'N/A' }}</td>
+                            <td>{{ cloud.sfdc_id or 'N/A' }}</td>
+                            <td>{{ cloud.private_device_licenses }}</td>
+                            <td>{{ cloud.shared_devices_licenses }}</td>
+                            <td>{{ cloud.browser_licenses }}</td>
+                            <td>{{ cloud.virtual_device_licenses }}</td>
+                            <td>{{ cloud.cloud_build }}</td>
+                            <td>{{ cloud.reporter_build }}</td>
+                            <td>{{ cloud.nv_build }}</td>
+                            <td>{{ cloud.selenium_build }}</td>
+                            <td>{{ cloud.phase or 'N/A' }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% elif request.method == 'POST' %}
+            <p class="no-results">No cloud found with that name.</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>
+{% endblock %}

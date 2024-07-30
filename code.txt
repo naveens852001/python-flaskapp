@@ -1,0 +1,67 @@
+from django import forms
+from django.db import models
+import django_filters
+from multiselectfield import MultiSelectField
+
+PHASE_CHOICES = [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5)]
+ROLE_CHOICES = [
+    ('public', 'public'),
+    ('private', 'private'),
+    ('demo', 'demo'),
+    ('staging', 'staging'),
+    ('offboarded', 'offboarded'),
+    ('poc', 'poc')
+]
+DATACENTERS_CHOICES = [
+    ('None', 'None'),
+    ('US1', 'US1'),
+    ('US2', 'US2'),
+    ('SG', 'SG'),
+    ('AU', 'AU'),
+    ('DE', 'DE'),
+    ('UK', 'UK'),
+    ('IL', 'IL'),
+    ('CA', 'CA'),
+]
+
+CLOUD_STATUS = [
+    ('Online', 'Online'),
+    ('Offline', 'Offline'),
+    ('Maintenance', 'Maintenance'),
+]
+
+
+class Customer(models.Model):
+    env                     = models.CharField(primary_key=True, max_length=24)
+    name                    = models.CharField(max_length=24)
+    email_address           = models.EmailField(null=True, blank=True)
+    cc_mail_ids             = models.CharField(max_length=1024, null=True, blank=True)
+    url                     = models.URLField(null=True)
+    monitor_user            = models.CharField(default='monitor', max_length=16)
+    monitor_pass            = models.CharField(max_length=32)
+    monitor_access_key      = models.CharField(max_length=256)
+    monitor_project         = models.CharField(null=True, blank=True, max_length=16)
+    datacenter_main         = models.CharField(max_length=8, default='None', choices=DATACENTERS_CHOICES)
+    datacenters_remote      = MultiSelectField(null=True, choices=DATACENTERS_CHOICES, blank=True)  # Multiselect field
+    role                    = models.CharField(choices=ROLE_CHOICES, default='private', max_length=10, null=True, blank=True)
+    status                  = models.CharField(choices=CLOUD_STATUS, default='Online', max_length=20, null=True, blank=True)
+    sfdc_name               = models.CharField(max_length=256, null=True, blank=True)
+    sfdc_id                 = models.CharField(max_length=256, null=True, blank=True)
+    private_device_licenses = models.IntegerField(default=0)
+    shared_devices_licenses = models.IntegerField(default=0)
+    browser_licenses        = models.IntegerField(default=0)
+    virtual_device_licenses = models.IntegerField(default=0)
+    cloud_build             = models.CharField(default="0.0", max_length=10, null=True, blank=True)
+    reporter_build          = models.CharField(default="0.0", max_length=10, null=True, blank=True)
+    nv_build                = models.CharField(default="0.0", max_length=10, null=True, blank=True)
+    selenium_build          = models.CharField(default="0.0", max_length=10, null=True, blank=True)
+    phase                   = models.SmallIntegerField(choices=PHASE_CHOICES, null=True, blank=True)
+
+    def _str_(self):
+        return self.name
+
+
+class CustomerFilter(django_filters.FilterSet):
+    class Meta:
+        model = Customer
+        fields = ['phase', 'datacenter_main', 'role', 'status']
