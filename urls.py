@@ -29,3 +29,4 @@ app.add_url_rule('/login-logout',view_func=main_view.Authentication.as_view('log
 #view/profile
 app.add_url_rule('/Profile',view_func=main_view.Profile.as_view('Profile'))
 
+app.add_url_rule('/test_connection', view_func=main_view.TestConnectionView.as_view('test_connection'))

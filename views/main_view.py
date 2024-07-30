@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for, flash, jsonify
 from flask.views import View, MethodView
 from forms import CloudForm
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func,text
 from models import Cloud
-from app import db
+from app import db,app
 
 # View/Render base.html
 class BaseHtmlView(MethodView):
@@ -107,3 +107,12 @@ class SuccessReDirect(View):
     def dispatch_request(self):
         return render_template('success.html')
 
+class TestConnectionView(MethodView):
+    def get(self):
+        try:
+            # Use text() function to wrap the raw SQL query
+            with app.app_context():
+                db.session.execute(text('SELECT 1'))
+            return jsonify(message='Database connection successful!'), 200
+        except Exception as e:
+            return jsonify(error=str(e)), 500
