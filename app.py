@@ -16,3 +16,5 @@ from models import *
 import views
 import urls
 
+if __name__ == '__main__':
+    app.run(debug=True)
