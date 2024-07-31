@@ -1,0 +1,11 @@
+colorama
+email_validator
+Flask
+Flask-Migrate
+Flask-SQLAlchemy
+Flask-WTF
+Jinja2
+psycopg2-binary
+python-dotenv
+SQLAlchemy
+WTForms
