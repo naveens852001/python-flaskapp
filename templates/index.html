@@ -16,7 +16,7 @@
     <div class="cloud-div">
         <div class="cloud-box">
             <h3>Total Cloud Registered:</h3>
-            <p id="cloud-count">Clouds: {{ cloud_count }}</p>
+            <p id="cloud-count">Clouds: {{ cloud_count if cloud_count is not none else 'N/A' }}</p>
         </div>
        
     </div>
@@ -24,7 +24,7 @@
     <div class="cloud-details">
        
         {% if results %}
-        <p>Cloud Details:</p>
+        <p style="margin-top: 10px;">Cloud Details:</p>
         <div class="action">
             <p><a href="{{url_for('update_cloud')}} ">Edit-Cloud</button></a>
             <p ><a href="{{url_for('update_cloud')}} ">Delete</button></a>
@@ -78,7 +78,7 @@
                 </tbody>
             </table>
         {% elif request.method == 'POST' %}
-            <p class="no-results">No cloud found with that name.</p>
+            
         {% endif %}
     </div>
 </body>

@@ -24,3 +24,4 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # def __init__(self):
     #     db=SQLAlchemy()
+    

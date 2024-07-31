@@ -1,7 +1,7 @@
 from app import app 
 from views import main_view
 # view/Home Page Render
-app.add_url_rule("/", view_func=main_view.HomepageHandler.as_view('home'))
+
 
 # view/Create Cloud Form Register
 app.add_url_rule(
@@ -12,10 +12,10 @@ app.add_url_rule(
     '/success', view_func=main_view.SuccessReDirect.as_view('success'))
 
 # view/search specific cloud details
-app.add_url_rule('/', view_func=main_view.SearchView.as_view('search_view'))
+app.add_url_rule('/', view_func=main_view.SearchView.as_view('search'))
 
 # view/total cloud-Registered
-app.add_url_rule('/', view_func=main_view.TotalCloud.as_view('total_cloud'))
+app.add_url_rule('/', view_func=main_view.TotalCloud.as_view('home'))
 
 # view/render base.html
 app.add_url_rule('/', view_func=main_view.BaseHtmlView.as_view('base'))

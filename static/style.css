@@ -35,14 +35,16 @@ h6 {
 
 .cloud-search {
   
-  width: 70%;
+  width: 30vw;
   height: 35px;
+  margin-left: 156px;
   margin-right: 0px;
   border: 1px solid #fff;
   background-color: transparent;
   margin-bottom: 10px;
   color: #fff;
   padding-left: 10px;
+  border-radius: none!important;
 }
 .cloud-search::placeholder {
   padding-left: 10px;
@@ -56,7 +58,7 @@ h6 {
   cursor: pointer;
   border: 1px solid #fff;
   color: #ddd;
-  border-radius: none!important;
+  
 }
 .btn-cloud:hover{
   transition: 1s;
@@ -85,6 +87,50 @@ nav ul {
   list-style: none;
   align-items: center;
 }
+.suggestions {
+ 
+  position: absolute; 
+  background-color: #000;
+  border: 1px solid #ddd;
+  margin-left: 155px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: calc(77% - 2px); 
+  overflow-y: auto;
+}
+
+
+
+.suggestions ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestions li {
+  color: #fff !important;
+  padding: 8px;
+}
+
+.search-area {
+  position: relative; 
+}
+
+.suggestions {
+  display: none; 
+}
+.suggestions.show {
+  display: block;
+}
+
+.btn-link{
+  background: none!important;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+}
 /* header/search-area ended */
 
 /* Home page  */
@@ -107,6 +153,10 @@ nav ul {
 .cloud-box > p {
   font-size: 1.2rem;
   font-weight: bold;
+}
+#cloud-count {
+  display: block; 
+  visibility: visible; 
 }
 /* home page ended */
 
@@ -170,14 +220,16 @@ a {
   margin-right: 10px;
 }
 table {
+  height: 200px;
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
+
 th,
 td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 5px;
   text-align: left;
   font-size: 12px;
 }
@@ -227,3 +279,4 @@ footer > .copyright {
   padding: 10px 0px 10px 0px;
 }
 /* footer-area ended */
+

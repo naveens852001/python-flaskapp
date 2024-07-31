@@ -5,22 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Flask App{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-   
 </head>
 <body>
   <div class="page-wrapper">
       <header class="header d-flex align-items-center justify-content-between">
           <div class="col-lg-4 d-flex align-items-center">
-              <a href="{{ url_for('home')}}"><img src="/static/img/devopsfarm-logo.png"  class="devopsfarm-logo" alt="DevOps Farm Logo"></a>
+              <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/devopsfarm-logo.png') }}" class="devopsfarm-logo" alt="DevOps Farm Logo"></a>
           </div>
-          <div class="search-area mt-3 mb-2 col-lg-4 d-flex justify-content-center">
-              <form method="POST" action="{{ url_for('search_view') }}" class="w-100">
-                  <div class="input-group">
-                      <input type="text" class="cloud-search" class="form-control" name="cloudsearch" placeholder="Enter Cloud Name">
-                      <button class=" btn-cloud " type="submit">Search</button>
-                  </div>
-              </form>
-          </div>
+          <div class="search-area mt-3 mb-2 col-lg-4 d-flex justify-content-center position-relative">
+            <form method="POST" action="{{ url_for('search') }}" class="w-100" >
+               <div class="input-group" style="margin-top: 10px;">
+                <input type="text" class=" w-100   cloud-search" name="cloudsearch" id="cloudsearch"  placeholder="Enter Cloud Name" value="{{ request.form.get('cloudsearch', '')  }}" autocomplete="off"  onfocus="showSuggestions()" onblur="hideSuggestions()" oninput="this.form.submit();" autofocus>
+                <input type="submit" class="btn-cloud" value="search" />
+            </div>
+            </form>
+            {% if suggestions %}
+            <div class="suggestions mt-2" id="suggestions-box">
+                <h4>Suggestions:</h4>
+                <ul class="list-group" id="suggestions-list">
+                    {% for suggestion in suggestions %}
+                        <li class="list-group-item">
+                            {% if suggestion.name == 'No cloud found with that name' %}
+                                {{ suggestion.name }}
+                            {% else %}
+                            <form method="post" action="{{ url_for('search') }}" style="display: inline;">
+                                <input type="hidden" name="cloudsearch" value="{{ suggestion.name }}">
+                                <button type="submit" class="btn btn-link">{{ suggestion.name }}</button>
+                            </form>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        </div>
+        
           <nav class="col-lg-4 d-flex justify-content-end">
               <ul class="nav-icons list-unstyled d-flex mb-0">
                   <li><a href="{{ url_for('home') }}">Home</a></li>
@@ -49,5 +68,33 @@
           <p class="copyright">&copy; 2024 DevOps-Farm App. All rights reserved.</p>
       </footer>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const input = document.getElementById('cloudsearch');
+        input.focus();
+        input.setSelectionRange(input.value.length, input.value.length);
+    });
+
+    function showSuggestions() {
+            document.getElementById('suggestions-box').classList.add('show');
+        }
+
+        function hideSuggestions() {
+            // Add a slight delay to allow for clicks within the box
+            setTimeout(() => {
+                if (!document.getElementById('suggestions-box').matches(':hover')) {
+                    document.getElementById('suggestions-box').classList.remove('show');
+                }
+            }, 100);
+        }
+
+        document.getElementById('suggestions-box').addEventListener('mouseover', function() {
+            this.classList.add('show');
+        });
+
+        document.getElementById('suggestions-box').addEventListener('mouseleave', function() {
+            this.classList.remove('show');
+        });
+</script>
 </body>
 </html>

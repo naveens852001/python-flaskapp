@@ -11,27 +11,48 @@ class BaseHtmlView(MethodView):
         return render_template('base.html')
 
 # View/Home Page Render
-class HomepageHandler(View):
-    def dispatch_request(self):
-        count = db.session.query(func.count(Cloud.id)).scalar()
-        return render_template('index.html', cloud_count=count)
+class TotalCloud(MethodView):
+    def get(self):
+        try:
+            cloud_count = db.session.query(func.count(Cloud.id)).scalar()
+        except Exception as e:
+            print(f"Exception occurred: {e}")
+            cloud_count = None
+        return render_template('index.html', cloud_count=cloud_count)
+
 
 # View/Search specific cloud details
 class SearchView(MethodView):
     def get(self):
-        return render_template('index.html', results=[])
+        cloud_count = db.session.query(func.count(Cloud.id)).scalar()
+        return render_template('index.html', cloud_count=cloud_count, suggestions=[])
 
     def post(self):
-        name = request.form.get('cloudsearch')
+        name = request.form.get('cloudsearch', '')
         results = []
+        suggestions = []
+        cloud_count = db.session.query(func.count(Cloud.id)).scalar()
+
         if name:
             try:
+                # Fetch exact matches
                 results = Cloud.query.filter_by(name=name).all()
+
+                # Fetch suggestions based on the input prefix
+                if len(name) > 0:
+                    suggestions = Cloud.query.filter(Cloud.name.ilike(f'{name}%')).all()
+
+                # If no suggestions found, show a message
+                if not suggestions:
+                    suggestions = [{'name': 'No cloud found with that name'}]
+
             except Exception as e:
-                print(f"Error: {e}")  # Debugging line
-        return render_template('index.html', results=results)
+                print(f"Error: {e}")
+
+        return render_template('index.html', results=results, cloud_count=cloud_count, suggestions=suggestions)
 
 # View/Update Cloud Details
+
 class CloudDetailsUpdate(View):
     def dispatch_request(self):
         return render_template('updatecloud.html')
@@ -46,14 +67,7 @@ class Profile(View):
     def dispatch_request(self):
         return render_template('profile.html')
 
-# View/Total Cloud Registered
-class TotalCloud(MethodView):
-    def get(self):
-        try:
-            cloud_count = db.session.query(func.count(Cloud.id)).scalar()
-        except Exception as e:
-            cloud_count = None
-        return render_template('index.html', cloud_count=cloud_count)
+
 
 # View/Create Cloud Form Register
 class CloudCreateHandler(View):
